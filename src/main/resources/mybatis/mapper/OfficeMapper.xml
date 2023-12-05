@@ -9,7 +9,7 @@
             <result property="street" column="street"/>
             <result property="city" column="city"/>
             <result property="state" column="state"/>
-            <result property="zipCode" column="zip_code"/>
+            <result property="zipCode" column="zipcode"/>
         </association>
     </resultMap>
 

@@ -1,8 +1,10 @@
 package com.nyu.db.projServer.service;
 
+import com.nyu.db.projServer.DTO.Response.OfficeDTO;
 import com.nyu.db.projServer.DTO.Response.VehicleDTO;
 import com.nyu.db.projServer.mapper.OfficeMapper;
 import com.nyu.db.projServer.mapper.VehicleMapper;
+import com.nyu.db.projServer.mapping.OfficeDTOMapping;
 import com.nyu.db.projServer.mapping.VehicleDTOMapping;
 import com.nyu.db.projServer.model.Office;
 import com.nyu.db.projServer.model.Vehicle;
@@ -31,7 +33,8 @@ public class OrderService {
                  .map(VehicleDTOMapping::toVehicleDTO).collect(Collectors.toList());
     }
 
-    public List<Office> getOfficeList() {
-        return officeMapper.getAllOfficesWithAddress();
+    public List<OfficeDTO> getOfficeList() {
+        return officeMapper.getAllOfficesWithAddress().stream().parallel()
+                .map(OfficeDTOMapping::toOfficeDTO).collect(Collectors.toList());
     }
 }
