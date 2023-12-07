@@ -18,8 +18,6 @@ public class OfficeDTOMapping {
         officeDTO.setAddress(addressDTO);
         officeDTO.setPhone(office.getPhone());
 
-
-
         return officeDTO;
     }
 }

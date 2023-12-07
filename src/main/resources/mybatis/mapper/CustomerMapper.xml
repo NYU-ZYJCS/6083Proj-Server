@@ -1,0 +1,79 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyu.db.projServer.mapper.CustomerMapper">
+
+    <resultMap id="BaseResultMap" type="com.nyu.db.projServer.model.Customer" >
+        <result column="address_id" property="addressId" />
+        <result column="customer_id" property="customerId" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="customer_type" property="customerType" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        address_id,
+        customer_id,
+        email,
+        phone,
+        customer_type
+    </sql>
+
+    <select id="getByUserName" resultMap="BaseResultMap">
+        select * from customer where username = #{username} and customer_type = #{userType}
+    </select>
+
+    <select id="getByEmail" resultMap="BaseResultMap">
+        select * from customer where email = #{email}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="customer_id" keyProperty="customerId" parameterType="com.nyu.db.projServer.model.Customer">
+        INSERT INTO customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != addressId ">
+                address_id,
+            </if>
+            <if test="null != password and '' != password">
+                password,
+            </if>
+            <if test="null != username and '' != username">
+                username,
+            </if>
+            <if test="null != email and '' != email">
+                email,
+            </if>
+            <if test="null != phone and '' != phone">
+                phone,
+            </if>
+            <if test="null != customerType and '' != customerType">
+                customer_type
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != addressId ">
+                #{addressId},
+            </if>
+            <if test="null != password and '' != password">
+                #{password},
+            </if>
+            <if test="null != username and '' != username">
+                #{username},
+            </if>
+            <if test="null != email and '' != email">
+                #{email},
+            </if>
+            <if test="null != phone and '' != phone">
+                #{phone},
+            </if>
+            <if test="null != customerType and '' != customerType">
+                #{customerType}
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updatePassword" parameterType="com.nyu.db.projServer.model.Customer">
+        UPDATE customer
+        set password = #{password}
+        WHERE customer_id = #{customerId}
+    </update>
+
+</mapper>

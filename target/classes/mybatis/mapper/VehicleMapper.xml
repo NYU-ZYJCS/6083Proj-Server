@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyu.db.projServer.mapper.VehicleMapper">
+    <resultMap id="vehicleResultMap" type="Vehicle">
+        <id property="vehicleID" column="vehicle_id"/>
+        <result property="imgUrl" column="img_url"/>
+        <result property="make" column="make"/>
+        <result property="model" column="model"/>
+        <result property="year" column="year"/>
+        <result property="officeID" column="office_id"/>
+        <association property="vehicleClass" javaType="VehicleClass">
+            <result property="dailyRate" column="daily_rate"/>
+            <result property="overMileFee" column="over_mile_fee"/>
+        </association>
+    </resultMap>
+
+
+    <select id="getVehicleByOfficeID" resultMap="vehicleResultMap">
+        SELECT v.vehicle_id, v.img_url, v.make, v.model, v.year, v.office_id, vc.daily_rate, vc.over_mile_fee
+        FROM vehicle v INNER JOIN vehicle_class vc ON v.vehicle_class_id = vc.class_id
+        WHERE v.office_id = #{officeID}
+    </select>
+</mapper>

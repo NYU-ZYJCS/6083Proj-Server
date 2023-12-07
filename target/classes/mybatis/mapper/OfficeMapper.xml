@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyu.db.projServer.mapper.OfficeMapper">
+    <resultMap id="officeResultMap" type="Office">
+        <id property="officeID" column="office_id"/>
+        <result property="phone" column="phone"/>
+        <result property="addressID" column="address_id"/>
+        <association property="address" javaType="Address">
+            <id property="addressID" column="addr_id"/>
+            <result property="street" column="street"/>
+            <result property="city" column="city"/>
+            <result property="state" column="state"/>
+            <result property="zipCode" column="zipcode"/>
+        </association>
+    </resultMap>
+
+    <select id="getOfficeByIDWithAddress" resultMap="officeResultMap">
+        SELECT o.office_id, o.phone, o.address_id,
+               a.address_id AS addr_id, a.street, a.city, a.state, a.zipcode
+        FROM office o
+                 INNER JOIN address a ON o.address_id = a.address_id
+        WHERE o.office_id = #{id}
+    </select>
+
+    <select id="getAllOfficesWithAddress" resultMap="officeResultMap">
+        SELECT o.office_id, o.phone, o.address_id,
+               a.address_id AS addr_id, a.street, a.city, a.state, a.zipcode
+        FROM office o
+                 INNER JOIN address a ON o.address_id = a.address_id
+    </select>
+
+
+</mapper>

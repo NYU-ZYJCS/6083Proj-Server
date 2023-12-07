@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-//@Mapper
+@Mapper
 public interface VehicleMapper {
     List<Vehicle> getVehicleByOfficeID(Long officeID);
 }

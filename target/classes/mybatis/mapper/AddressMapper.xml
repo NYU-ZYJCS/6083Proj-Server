@@ -1,0 +1,54 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyu.db.projServer.mapper.AddressMapper">
+
+    <resultMap id="BaseResultMap" type="com.nyu.db.projServer.model.Address" >
+        <result column="address_id" property="addressID" />
+        <result column="street" property="street" />
+        <result column="city" property="city" />
+        <result column="state" property="state" />
+        <result column="zipcode" property="zipCode" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        address_id,
+        street,
+        city,
+        state,
+        zipcode
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="address_id" keyProperty="addressID" parameterType="com.nyu.db.projServer.model.Address">
+
+        INSERT INTO address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="null != street and '' != street">
+                street,
+            </if>
+            <if test="null != city and '' != city">
+                city,
+            </if>
+            <if test="null != state and '' != state">
+                `state`,
+            </if>
+            <if test="null != zipCode and '' != zipCode">
+                zipcode
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="null != street and '' != street">
+                #{street},
+            </if>
+            <if test="null != city and '' != city">
+                #{city},
+            </if>
+            <if test="null != state and '' != state">
+                #{state},
+            </if>
+            <if test="null != zipCode and '' != zipCode">
+                #{zipCode}
+            </if>
+        </trim>
+    </insert>
+
+
+</mapper>
